@@ -5,8 +5,6 @@ body {
     color: #e2e8f0;
     background-color: #0f172a;
     min-height: 100vh;
-    selection-background-color: #fbbf24;
-    selection-color: #1e3a8a;
 }
 
 /* --- Componentes reutilizables --- */
@@ -14,7 +12,6 @@ body {
     background-color: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s ease;
 }
 
 .footer {
@@ -30,7 +27,7 @@ body {
 }
 
 .btn-secondary {
-    @apply bg-transparent border-2 border-amber-400 text-amber-400 font-bold py-3 px-8 rounded-lg transition-all duration-300;
+    @apply bg-transparent border-2 border-amber-400 text-amber-400 font-bold py-2 px-6 rounded-lg transition-all duration-300;
 }
 .btn-secondary:hover {
     @apply bg-amber-400 text-blue-900;
@@ -40,7 +37,7 @@ body {
     @apply text-4xl font-extrabold text-white;
 }
 
-/* --- Hero Section --- */
+/* --- Secciones Específicas --- */
 .hero-section {
     background-image: linear-gradient(to top, #0f172a, rgba(15, 23, 42, 0.7)), url('/images/hero-background.jpg');
     background-size: cover;
@@ -49,7 +46,23 @@ body {
     @apply flex items-center justify-center py-20 px-4;
 }
 
-/* --- Blog Card Rediseñada --- */
+.about-hero-section {
+    background-image: linear-gradient(to top, #0f172a, rgba(15, 23, 42, 0.7)), url('/images/hero-about.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 50vh;
+    @apply flex items-center justify-center py-20 px-4;
+}
+
+.feature-card {
+    @apply bg-blue-900/40 rounded-xl p-6 text-center border border-blue-800/50;
+}
+
+.team-member {
+    @apply text-center;
+}
+
+/* --- Blog --- */
 .blog-card {
     @apply bg-blue-900/40 rounded-xl overflow-hidden shadow-lg border border-blue-800/50;
     @apply transition-all duration-300 ease-in-out;
@@ -65,23 +78,97 @@ body {
 }
 
 /* --- Estilos para Artículos (Prose) --- */
-.prose p {
+.prose {
+    color: #cbd5e1;
+}
+.prose p, .prose ul, .prose li {
     color: #cbd5e1;
     line-height: 1.8;
-    margin-bottom: 1.5rem;
+}
+.prose h1, .prose h2, .prose h3 {
+    color: white;
 }
 .prose h2 {
-    color: #fbbf24;
-    font-size: 1.875rem; /* 30px */
-    font-weight: 700;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(251, 191, 36, 0.2);
+    @apply text-3xl font-bold mt-12 mb-4 pb-2 border-b border-amber-400/20;
 }
 .prose a {
     @apply text-blue-400 underline transition-colors duration-300;
 }
 .prose a:hover {
     @apply text-blue-300;
+}
+.prose strong {
+    color: #f1f5f9;
+}
+
+/* --- Aplicación --- */
+.view {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.view.hidden {
+    opacity: 0;
+    transform: scale(0.98);
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-button {
+    @apply card rounded-2xl p-6 text-center cursor-pointer hover:border-amber-400 transition-all duration-300;
+}
+
+.form-card {
+    @apply card rounded-2xl p-6;
+}
+
+.form-label {
+    @apply block mb-2 font-medium text-white;
+}
+
+.form-select, .form-input {
+    @apply w-full bg-blue-900/50 border border-blue-700 rounded-lg p-3 text-white;
+}
+
+.slider-thumb {
+    @apply w-full h-2 bg-blue-800 rounded-lg appearance-none cursor-pointer;
+}
+.slider-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fbbf24;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #1e3a8a;
+}
+.slider-thumb::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fbbf24;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #1e3a8a;
+}
+.calendar-day.selected {
+    background-color: #fbbf24;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+.loader {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-left-color: #fbbf24;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
