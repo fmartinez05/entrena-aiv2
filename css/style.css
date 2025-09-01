@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #e2e8f0;
+    background-color: #0f172a;
+    min-height: 100vh;
+    selection-background-color: #fbbf24;
+    selection-color: #1e3a8a;
+}
+
+/* --- Componentes reutilizables --- */
+.navbar {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.footer {
+    background-color: #0c1221;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+    @apply bg-amber-400 text-blue-900 font-bold py-3 px-8 rounded-lg transition-all duration-300;
+}
+.btn-primary:hover {
+    @apply bg-amber-300 shadow-lg shadow-amber-500/20 transform -translate-y-1;
+}
+
+.btn-secondary {
+    @apply bg-transparent border-2 border-amber-400 text-amber-400 font-bold py-3 px-8 rounded-lg transition-all duration-300;
+}
+.btn-secondary:hover {
+    @apply bg-amber-400 text-blue-900;
+}
+
+.section-title {
+    @apply text-4xl font-extrabold text-white;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background-image: linear-gradient(to top, #0f172a, rgba(15, 23, 42, 0.7)), url('/images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 60vh;
+    @apply flex items-center justify-center py-20 px-4;
+}
+
+/* --- Blog Card Rediseñada --- */
+.blog-card {
+    @apply bg-blue-900/40 rounded-xl overflow-hidden shadow-lg border border-blue-800/50;
+    @apply transition-all duration-300 ease-in-out;
+}
+.blog-card:hover {
+    @apply transform -translate-y-2 shadow-2xl border-amber-400/50;
+}
+.blog-card-image {
+    @apply w-full h-56 object-cover;
+}
+.read-more {
+    @apply text-amber-400 font-semibold hover:text-amber-200 self-start mt-auto;
+}
+
+/* --- Estilos para Artículos (Prose) --- */
+.prose p {
+    color: #cbd5e1;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+.prose h2 {
+    color: #fbbf24;
+    font-size: 1.875rem; /* 30px */
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(251, 191, 36, 0.2);
+}
+.prose a {
+    @apply text-blue-400 underline transition-colors duration-300;
+}
+.prose a:hover {
+    @apply text-blue-300;
+}
