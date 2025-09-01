@@ -3,24 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrena.ai - Entrenador Personal IA Gratis para Maratón y Triatlón</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fbbf24'%3E%3Cpath d='M4 4h4v12H4V4zm6 6h4v6h-4v-6zm6-3h4v9h-4V7z'/%3E%3C/svg%3E" type="image/svg+xml">
-    <meta name="robots" content="noindex"> <script src="https://cdn.tailwindcss.com"></script>
+    <title>Herramienta de Entrenamiento - Entrena.ai</title>
+    <meta name="robots" content="noindex"> <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fbbf24'%3E%3Cpath d='M4 4h4v12H4V4zm6 6h4v6h-4v-6zm6-3h4v9h-4V7z'/%3E%3C/svg%3E" type="image/svg+xml">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="selection:bg-amber-300 selection:text-blue-900">
 
-    <nav class="navbar">
-        <a href="index.html" class="flex items-center gap-3"> <svg class="w-8 h-8 text-amber-300" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v12H4V4zm6 6h4v6h-4v-6zm6-3h4v9h-4V7z"></path></svg>
-            <span class="text-2xl font-bold text-white">entrena.ai</span>
-        </a>
-        <div class="flex items-center gap-6 text-white font-semibold">
-            <a href="blog.html" class="hover:text-amber-300 transition-colors">Blog</a>
-            <a href="index.html" class="btn-primary px-5 py-2 rounded-lg font-semibold">Volver a Inicio</a>
+    <header id="main-header"></header>
+
+    <main id="app-view-wrapper" class="pt-24 pb-12 px-4 w-full flex items-start justify-center min-h-screen">
+        <div class="w-full max-w-4xl mx-auto">
+
+            <div id="main-menu" class="text-center view">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                     <svg class="w-12 h-12 text-amber-300" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v12H4V4zm6 6h4v6h-4v-6zm6-3h4v9h-4V7z"></path></svg>
+                    <h1 class="text-4xl md:text-5xl font-bold text-white" data-lang="app_title">Entrenador Personal IA</h1>
+                </div>
+                <p class="text-lg text-blue-200 mb-8 max-w-2xl mx-auto" data-lang="app_subtitle">Tu compañero inteligente para alcanzar tus metas de triatlón y maratón.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div id="plan-long-term-card" class="card-button">
+                        <h2 class="text-2xl font-semibold mb-2" data-lang="plan_long_term_title">Planificar un objetivo a largo plazo</h2>
+                        <p class="text-blue-300" data-lang="plan_long_term_desc">Define tu carrera y fecha objetivo. La IA creará tu plan de entrenamiento completo.</p>
+                    </div>
+                    <div id="plan-today-card" class="card-button">
+                        <h2 class="text-2xl font-semibold mb-2" data-lang="plan_today_title">Planificar un entrenamiento para hoy</h2>
+                        <p class="text-blue-300" data-lang="plan_today_desc">Obtén una sesión personalizada basada en tu estado y disponibilidad actual.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="long-term-planner" class="hidden view">
+                <div class="flex justify-between items-center mb-6 gap-4">
+                    <button id="back-to-main-lt" class="btn-secondary px-4 py-2">&lt; <span data-lang="back">Atrás</span></button>
+                    <h2 class="text-3xl font-bold text-center text-white flex-grow" data-lang="long_term_planner_title">Plan de Objetivo a Largo Plazo</h2>
+                </div>
+                <div class="form-card">
+                    <div class="grid md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div class="space-y-6">
+                            <div>
+                                <label for="goal-type" class="form-label" data-lang="goal_type_label">1. Elige tu objetivo</label>
+                                <select id="goal-type" class="form-select"></select>
+                            </div>
+                            <div>
+                                <label for="level-slider" class="form-label" data-lang="level_label">2. Elige tu nivel: <span id="level-value-text" class="font-bold text-amber-300"></span></label>
+                                <input id="level-slider" type="range" min="0" max="2" value="0" class="slider-thumb">
+                            </div>
+                            <div id="time-goal-container" class="space-y-2 hidden">
+                                <label class="form-label" data-lang="time_goal_label">4. Marca Objetivo (Opcional)</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="number" id="goal-hours" placeholder="HH" class="form-input text-center" min="0">
+                                    <span class="font-bold">:</span>
+                                    <input type="number" id="goal-minutes" placeholder="MM" class="form-input text-center" min="0" max="59">
+                                    <span class="font-bold">:</span>
+                                    <input type="number" id="goal-seconds" placeholder="SS" class="form-input text-center" min="0" max="59">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label" data-lang="goal_date_label">3. Selecciona la fecha de la carrera</label>
+                            <div id="calendar" class="bg-blue-900/50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <button id="prev-month" class="p-2 rounded-full hover:bg-blue-800">&lt;</button>
+                                    <h3 id="month-year" class="font-semibold"></h3>
+                                    <button id="next-month" class="p-2 rounded-full hover:bg-blue-800">&gt;</button>
+                                </div>
+                                <div id="calendar-days" class="grid grid-cols-7 gap-1 text-center text-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="generate-long-term-plan-btn" class="btn-primary w-full mt-6" data-lang="generate_plan">Generar Plan</button>
+                </div>
+            </div>
+
+            <div id="today-planner" class="hidden view">
+                <div class="flex justify-between items-center mb-6 gap-4">
+                    <button id="back-to-main-tp" class="btn-secondary px-4 py-2">&lt; <span data-lang="back">Atrás</span></button>
+                    <h2 class="text-3xl font-bold text-center text-white flex-grow" data-lang="today_planner_title">Entrenamiento para Hoy</h2>
+                </div>
+                <div class="form-card space-y-6">
+                    <div>
+                        <label for="fatigue-slider" class="form-label" data-lang="fatigue_label">Fatiga actual: <span id="fatigue-value">5</span>/10</label>
+                        <input id="fatigue-slider" type="range" min="0" max="10" value="5" class="slider-thumb">
+                    </div>
+                    <div>
+                        <label for="discipline-select" class="form-label" data-lang="discipline_label">Disciplina</label>
+                        <select id="discipline-select" class="form-select"></select>
+                    </div>
+                    <div>
+                        <label for="effort-slider" class="form-label" data-lang="effort_label">Nivel de exigencia: <span id="effort-value">5</span>/10</label>
+                        <input id="effort-slider" type="range" min="0" max="10" value="5" class="slider-thumb">
+                    </div>
+                    <div>
+                        <label for="duration-input" class="form-label" data-lang="duration_label">Duración (minutos)</label>
+                        <input id="duration-input" type="number" value="60" class="form-input">
+                    </div>
+                    <button id="generate-today-plan-btn" class="btn-primary w-full mt-4" data-lang="generate_workout">Generar Entrenamiento</button>
+                </div>
+            </div>
+
+            <div id="plan-display" class="hidden view">
+                <div class="flex justify-between items-center mb-6 gap-4">
+                    <button id="back-btn" class="btn-secondary px-4 py-2">&lt; <span data-lang="back">Atrás</span></button>
+                    <h2 id="plan-title" class="text-2xl md:text-3xl font-bold text-center text-white flex-grow"></h2>
+                    <button id="download-pdf-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold px-4 py-2 rounded-lg" data-lang="download_pdf">Descargar PDF</button>
+                </div>
+                <div id="plan-content-wrapper">
+                    <div id="plan-content" class="card rounded-2xl p-6 max-h-[60vh] overflow-y-auto"></div>
+                </div>
+            </div>
+
         </div>
-    </nav>
+    </main>
     
-    </body>
+    <div id="loading-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[110]">
+        <div class="loader"></div>
+    </div>
+    
+    <footer id="main-footer"></footer>
+    
+    <script src="/js/main.js"></script> <script src="/js/app.js"></script> </body>
 </html>
